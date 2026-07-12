@@ -3,16 +3,15 @@ name: Supabase Keep Alive
 on:
   schedule:
     - cron: '0 0 */3 * *'
-  workflow_dispatch: # Ini tombol rahasia agar Anda bisa tes jalankan manual kapan saja
+  workflow_dispatch: 
 
 jobs:
   ping-db:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Ping Request to Supabase API
+      - name: Send Query Request to Supabase API
         run: |
-          curl -s -X POST \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/ping" \
+          curl -s -X GET \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?select=*&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json"
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
