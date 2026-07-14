@@ -135,61 +135,38 @@ const Detail = () => {
       label: "Aksi Status",
       value: (
         <div className={styles.actionButtons}>
-          {data.status === "Verification" && (
+          {data.status === "Menunggu" && (
             <>
               <Button
                 variant="success"
-                onClick={() => handleStatusChange(3)}
-                loading={loading}
-                icon="✅"
-                size="small"
-              >
-                Approve
-              </Button>
-              <Button
-                variant="danger"
                 onClick={() => handleStatusChange(2)}
-                loading={loading}
-                icon="❌"
-                size="small"
-              >
-                Reject
-              </Button>
-            </>
-          )}
-
-          {data.status === "Approved" && (
-            <>
-              <Button
-                variant="warning"
-                onClick={() => handleStatusChange(4)}
-                loading={loading}
-                icon="⏸️"
-                size="small"
-              >
-                Hold
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => handleStatusChange(5)}
                 loading={loading}
                 icon="⚙️"
                 size="small"
               >
-                Process
+                Proses
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => handleStatusChange(4)}
+                loading={loading}
+                icon="❌"
+                size="small"
+              >
+                Tolak
               </Button>
             </>
           )}
 
-          {(data.status === "On Hold" || data.status === "On Process") && (
+          {data.status === "Diproses" && (
             <Button
-              variant="secondary"
-              onClick={() => handleStatusChange(6)}
+              variant="primary"
+              onClick={() => handleStatusChange(3)}
               loading={loading}
-              icon="✨"
+              icon="✅"
               size="small"
             >
-              Done
+              Selesai
             </Button>
           )}
         </div>

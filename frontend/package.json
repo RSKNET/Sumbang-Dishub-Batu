@@ -19,7 +19,8 @@
     "obfuscate-js": "javascript-obfuscator build/static/js --output build/static/js",
     "minify-css": "find build/static/css -name '*.css' | xargs uglifycss > build/static/css/styles.min.css",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "patch-package"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +42,16 @@
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.1",
+    "patch-package": "^8.0.1",
     "uglifycss": "^0.0.29"
+  },
+  "overrides": {
+    "@tootallnate/once": "^2.0.1",
+    "nth-check": "^2.1.1",
+    "postcss": "^8.5.10",
+    "serialize-javascript": "^7.0.5",
+    "underscore": "^1.13.8",
+    "uuid": "^11.1.1",
+    "webpack-dev-server": "^5.2.5"
   }
 }
