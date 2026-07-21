@@ -6,13 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  ping-db:
+  keep-alive-db:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Query Request to Supabase API
+      - name: Send Upsert Request to Supabase API
         run: |
-          curl -s -X GET \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?select=*&limit=1&t=$(date +%s)" \
+          curl -s -X POST \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Cache-Control: no-cache"
+            -H "Content-Type: application/json" \
+            -H "Prefer: resolution=merge-duplicates" \
+            -H "Cache-Control: no-cache" \
+            -d '{"id": 1}'
