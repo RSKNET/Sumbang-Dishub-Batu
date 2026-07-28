@@ -6,29 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  keep-alive-db:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Simulasi Trafik Organik (DELETE -> POST -> GET)
-        run: |
-          # Generate Random ID antara 1 dan 99999
-          TARGET_ID=$((RANDOM % 99999 + 1))
-          CURRENT_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-
-          echo "Bersihkan data lama dari tabel..."
-          curl -s -X DELETE "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?id=gt.0" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
-
-          echo "Memasukkan data baru dengan Random ID: $TARGET_ID..."
-          curl -s -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"id\": $TARGET_ID, \"updated_at\": \"$CURRENT_TIME\"}"
-
-          echo "Mengambil data terbaru (Verifikasi ID: $TARGET_ID)..."
-          curl -s -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?id=eq.$TARGET_ID" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Accept: application/json"
+  call-shared-keep-alive:
+    uses: StillLogic/Github-Actions/.github/workflows/supabase-keep-alive.yml@main
+    secrets:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
