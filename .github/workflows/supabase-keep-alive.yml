@@ -5,9 +5,6 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
-permissions:
-  actions: write
-
 jobs:
   call-shared-keep-alive:
     uses: RSKNET/Github-Actions/.github/workflows/supabase-keep-alive.yml@main
