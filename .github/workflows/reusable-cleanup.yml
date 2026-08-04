@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-shared-cleanup:
-    uses: StillLogic/Github-Actions/.github/workflows/reusable-cleanup.yml@main
+    uses: RSKNET/Github-Actions/.github/workflows/reusable-cleanup.yml@main
     with:
       retain_days: 5
       keep_minimum_runs: 3
