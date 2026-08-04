@@ -1,4 +1,4 @@
-name: Cleanup Workflow History
+name: History Sweeper
 
 on:
   schedule:
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   call-shared-cleanup:
-    uses: RSKNET/Github-Actions/.github/workflows/reusable-cleanup.yml@main
+    uses: RSKNET/Github-Actions/.github/workflows/history-sweeper.yml@main
     with:
       retain_days: 5
       keep_minimum_runs: 3
