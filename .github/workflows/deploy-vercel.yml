@@ -1,0 +1,30 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - V2-Supabase
+  workflow_dispatch:
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend
+    uses: RSKNET/Github-Actions/.github/workflows/deploy-vercel.yml@main
+    with:
+      working_directory: ./Backend
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
+
+  deploy-frontend:
+    name: Deploy Frontend
+    uses: RSKNET/Github-Actions/.github/workflows/deploy-vercel.yml@main
+    with:
+      working_directory: ./frontend
+    secrets:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
