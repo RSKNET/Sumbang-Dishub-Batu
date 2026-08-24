@@ -11,20 +11,44 @@ on:
 jobs:
   deploy-backend:
     name: Deploy Backend
-    uses: RSKNET/Github-Actions/.github/workflows/deploy-vercel.yml@main
-    with:
-      working_directory: ./Backend
-    secrets:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project Code
+        uses: actions/checkout@v4
+
+      - name: Checkout Private Actions Repo
+        uses: actions/checkout@v4
+        with:
+          repository: RSKNET/Github-Actions
+          token: ${{ secrets.GH_PAT }}
+          path: .github/actions/github-actions
+
+      - name: Run Deploy Vercel Action
+        uses: ./.github/actions/github-actions/Deploy Vercel
+        with:
+          working_directory: ./Backend
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_BACKEND }}
 
   deploy-frontend:
     name: Deploy Frontend
-    uses: RSKNET/Github-Actions/.github/workflows/deploy-vercel.yml@main
-    with:
-      working_directory: ./frontend
-    secrets:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project Code
+        uses: actions/checkout@v4
+
+      - name: Checkout Private Actions Repo
+        uses: actions/checkout@v4
+        with:
+          repository: RSKNET/Github-Actions
+          token: ${{ secrets.GH_PAT }}
+          path: .github/actions/github-actions
+
+      - name: Run Deploy Vercel Action
+        uses: ./.github/actions/github-actions/Deploy Vercel
+        with:
+          working_directory: ./frontend
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_org_id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
